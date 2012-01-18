@@ -1,22 +1,20 @@
 package controllers;
 
-import com.heroku.api.HerokuAPI;
 import com.heroku.api.connection.HttpClientConnection;
 import com.heroku.api.request.key.KeyAdd;
 import com.heroku.api.request.login.BasicAuthLogin;
 import com.heroku.api.response.Unit;
+
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.KeyPair;
-import play.*;
+
 import play.mvc.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
 
-import models.*;
 
 public class Application extends Controller {
 
