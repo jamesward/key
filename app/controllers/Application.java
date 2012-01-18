@@ -24,15 +24,20 @@ public class Application extends Controller {
     private static final String SSH_KEY_FILE_NAME = "id_rsa_heroku";
 
     public static void index() {
-        render();
-    }
-
-    public static void createKey(String username, String password) throws JSchException, IOException {
 
         System.out.println("x-forwarded-proto " +  request.headers.get("x-forwarded-proto"));
 
         if ((request.headers.get("x-forwarded-proto") != null) && (request.headers.get("x-forwarded-proto").values.indexOf("https") != 0)) {
             redirect("https://" + request.host);
+        }
+
+        render();
+    }
+
+    public static void createKey(String username, String password) throws JSchException, IOException {
+
+        if ((request.headers.get("x-forwarded-proto") != null) && (request.headers.get("x-forwarded-proto").values.indexOf("https") != 0)) {
+            index();
         }
 
         JSch jsch = new JSch();
