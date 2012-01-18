@@ -1,0 +1,15 @@
+# Application dependencies
+
+require:
+    - play
+    - com.heroku.api -> heroku-api 0.1-SNAPSHOT
+    - com.heroku.api -> heroku-json-jackson 0.1-SNAPSHOT
+    - com.heroku.api -> heroku-http-apache 0.1-SNAPSHOT
+    - com.jcraft -> jsch 0.1.45
+
+repositories:
+    - sonatypeSnapshotsRepo:
+        type: iBiblio
+        root: https://oss.sonatype.org/content/repositories/snapshots
+        contains:
+            - com.heroku.api -> *
