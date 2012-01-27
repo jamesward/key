@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create a SSH Key for Heroku</title>
+    <title>Add a SSH Key to Your Heroku Account</title>
     <meta charset="${_response_encoding}">
     <link rel="stylesheet" type="text/css" href="@{'/public/bootstrap.min.css'}">
     <style type="text/css">
@@ -31,13 +31,17 @@
             -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
             box-shadow: 0 1px 2px rgba(0,0,0,.15);
         }
+
+        blockquote {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="#">Create a SSH Key for Heroku</a>
+                <a class="brand" href="#">Add a SSH Key to Your Heroku Account</a>
             </div>
         </div>
     </div>
@@ -46,7 +50,8 @@
 
         <div class="content">
             <div>
-                <h2>Using your Heroku credentials a new SSH key will be created for you and associated with your account.  Save the key locally and configure your git / ssh client to use the key.</h2>
+                <h2>${flash.message}</h2>
+
                 <form action="/createKey" target="" class="form-stacked" method="post">
                     <fieldset>
                         <div class="clearfix">
@@ -64,13 +69,22 @@
                             </div>
                         </div>
                     </fieldset>
-                    <button type="submit" class="btn primary">Create Key</button>
+                    <fieldset>
+                        <div class="clearfix">
+                            <label for="publickey">Your Public Key (optional)</label>
+                            <blockquote>If you do not specify a public key then a new private key will be created for you and downloaded.</blockquote>
+                            <div class="input">
+                                <textarea id="publickey" class="xlarge" name="publickey" style="width: 96%; height: 120px"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn primary">Add Key</button>
                 </form>
             </div>
         </div>
 
         <footer>
-            <p>Your credentials and the SSH key are never stored, logged, or transferred over a non-secure protocol.</p>
+            <p>Your credentials and the SSH private key are never stored, logged, or transferred over a non-secure protocol.</p>
         </footer>
 
     </div> <!-- /container -->

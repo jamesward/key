@@ -30,33 +30,48 @@ public class Application extends Controller {
         render();
     }
 
-    public static void createKey(String username, String password) throws JSchException, IOException {
+    public static void createKey(String username, String password, String publickey) throws JSchException, IOException {
 
         if ((request.headers.get("x-forwarded-proto") != null) && (request.headers.get("x-forwarded-proto").values.indexOf("https") != 0)) {
             index();
         }
+        
+        byte[] privateKeyByteArray = null;
 
-        JSch jsch = new JSch();
-        KeyPair keyPair = KeyPair.genKeyPair(jsch, KeyPair.RSA);
+        if (publickey.length() <= 0) {
+            // create a new key pair
+            JSch jsch = new JSch();
+            KeyPair keyPair = KeyPair.genKeyPair(jsch, KeyPair.RSA);
 
-        ByteArrayOutputStream privateKeyOutputStream = new ByteArrayOutputStream();
-        keyPair.writePrivateKey(privateKeyOutputStream);
-        privateKeyOutputStream.close();
+            ByteArrayOutputStream privateKeyOutputStream = new ByteArrayOutputStream();
+            keyPair.writePrivateKey(privateKeyOutputStream);
+            privateKeyOutputStream.close();
 
-        ByteArrayOutputStream publicKeyOutputStream = new ByteArrayOutputStream();
-        keyPair.writePublicKey(publicKeyOutputStream, SSH_KEY_COMMENT);
-        publicKeyOutputStream.close();
+            ByteArrayOutputStream publicKeyOutputStream = new ByteArrayOutputStream();
+            keyPair.writePublicKey(publicKeyOutputStream, SSH_KEY_COMMENT);
+            publicKeyOutputStream.close();
+
+            publickey = new String(publicKeyOutputStream.toByteArray());
+
+            privateKeyByteArray = privateKeyOutputStream.toByteArray();
+
+        }
 
         HttpClientConnection herokuConnection = new HttpClientConnection(new BasicAuthLogin(username, password));
 
-        KeyAdd keyAdd = new KeyAdd(new String(publicKeyOutputStream.toByteArray()));
+        KeyAdd keyAdd = new KeyAdd(publickey);
         Unit keyAddResponse = herokuConnection.execute(keyAdd);
 
         if (keyAddResponse == null) {
             throw new RuntimeException("Could not add an ssh key to the user");
         }
 
-        renderBinary(new ByteArrayInputStream(privateKeyOutputStream.toByteArray()), SSH_KEY_FILE_NAME);
+        if (privateKeyByteArray != null) {
+            renderBinary(new ByteArrayInputStream(privateKeyByteArray), SSH_KEY_FILE_NAME);
+        }
+
+        flash("message", "Key added successfully!");
+        index();
     }
 
 }
