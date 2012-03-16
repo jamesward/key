@@ -2,7 +2,3 @@
 
 require:
     - play
-    - com.heroku.api -> heroku-api 0.2
-    - com.heroku.api -> heroku-json-jackson 0.2
-    - com.heroku.api -> heroku-http-apache 0.2
-    - com.jcraft -> jsch 0.1.45

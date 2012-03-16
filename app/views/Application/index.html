@@ -3,90 +3,9 @@
 <head>
     <title>Add a SSH Key to Your Heroku Account</title>
     <meta charset="${_response_encoding}">
-    <link rel="stylesheet" type="text/css" href="@{'/public/bootstrap.min.css'}">
-    <style type="text/css">
-        /* Override some defaults */
-        html, body {
-            background-color: #eee;
-        }
-        body {
-            padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-        }
-        .container > footer p {
-            text-align: center; /* center align it with the container */
-        }
-        .container {
-            width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
-        }
-
-        /* The white background content wrapper */
-        .content {
-            background-color: #fff;
-            padding: 20px;
-            margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
-            -webkit-border-radius: 0 0 6px 6px;
-            -moz-border-radius: 0 0 6px 6px;
-            border-radius: 0 0 6px 6px;
-            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-            box-shadow: 0 1px 2px rgba(0,0,0,.15);
-        }
-
-        blockquote {
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 <body>
-    <div class="topbar">
-        <div class="fill">
-            <div class="container">
-                <a class="brand" href="#">Add a SSH Key to Your Heroku Account</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-
-        <div class="content">
-            <div>
-                <h2>${flash.message}</h2>
-
-                <form action="/createKey" target="" class="form-stacked" method="post">
-                    <fieldset>
-                        <div class="clearfix">
-                            <label for="username">Heroku Username</label>
-                            <div class="input">
-                                <input id="username" class="xlarge" name="username" size="30" type="text">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="clearfix">
-                            <label for="password">Heroku Password</label>
-                            <div class="input">
-                                <input id="password" class="xlarge" name="password" size="30" type="password">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="clearfix">
-                            <label for="publickey">Your Public Key (optional)</label>
-                            <blockquote>If you do not specify a public key then a new private key will be created for you and downloaded.</blockquote>
-                            <div class="input">
-                                <textarea id="publickey" class="xlarge" name="publickey" style="width: 96%; height: 120px"></textarea>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <button type="submit" class="btn primary">Add Key</button>
-                </form>
-            </div>
-        </div>
-
-        <footer>
-            <p>Your credentials and the SSH private key are never stored, logged, or transferred over a non-secure protocol.</p>
-        </footer>
-
-    </div> <!-- /container -->
+    <h1>Use the official SSH key management console on Heroku:</h1>
+    <h1><a href="https://api.heroku.com/account/ssh">https://api.heroku.com/account/ssh</a></h1>
 </body>
 </html>
